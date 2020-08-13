@@ -1,0 +1,28 @@
+﻿@model ASP_Blog.ViewModels.Account.LoginViewModel
+
+<h2>Авторизация</h2>
+
+<form asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <div>
+        <label asp-for="UserName"></label><br />
+        <input type="text" asp-for="UserName" />
+        <span asp-validation-for="UserName"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label><br />
+        <input type="password" asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <label asp-for="RememberMe"></label><br />
+        <input type="checkbox" asp-for="RememberMe" />
+    </div>
+    <div>
+        <input type="submit" name="Войти" />
+    </div>
+</form>
+
+@section scripts
+{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

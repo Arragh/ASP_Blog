@@ -1,0 +1,34 @@
+﻿@model ASP_Blog.ViewModels.Account.RegisterViewModel
+
+<h2>Регистрация нового пользователя</h2>
+
+    <form asp-controller="Account" asp-action="Register" method="post">
+        <div>
+            <label asp-for="UserName"></label><br />
+            <input type="text" asp-for="UserName" />
+            <span asp-validation-for="UserName"></span>
+        </div>
+        <div>
+            <label asp-for="Email"></label><br />
+            <input type="email" asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label><br />
+            <input type="password" asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <label asp-for="PasswordConfirm"></label><br />
+            <input type="password" asp-for="PasswordConfirm" />
+            <span asp-validation-for="PasswordConfirm"></span>
+        </div>
+        <div>
+            <input type="submit" name="Регистрация" />
+        </div>
+    </form>
+
+@section scripts
+{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
