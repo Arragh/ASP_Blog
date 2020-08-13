@@ -17,6 +17,7 @@ namespace ASP_Blog.ViewModels.Account
         [Required(ErrorMessage = "Требуется ввести адрес Email.")]
         [Display(Name = "Адрес Email")]
         [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage = "Введите корректный адрес Email")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Требуется ввести пароль.")]
