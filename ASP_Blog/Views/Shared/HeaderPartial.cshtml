@@ -22,9 +22,12 @@
                 <a asp-controller="Home" asp-action="Index">Главная</a>
                 @if (User.Identity.IsAuthenticated)
                 {
+                    <span>&nbsp;&nbsp;&nbsp;</span>
                     if (User.IsInRole("admin"))
                     {
                         @Html.ActionLink("Права доступа", "Index", "Roles")
+                        <span>&nbsp;&nbsp;&nbsp;</span>
+                        @Html.ActionLink("Панель администратора", "Index", "Admin")
                     }
                 }
             </td>
