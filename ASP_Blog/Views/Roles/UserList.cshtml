@@ -1,10 +1,11 @@
-﻿@model IEnumerable<ASP_Blog.Models.Identity.User>
+﻿@using ASP_Blog.Models.Config
+@model IEnumerable<ASP_Blog.Models.Identity.User>
 
 <h2>Список пользователей</h2>
 <table class="table">
     @foreach (var user in Model)
     {
-        if (user.UserName != "Administrator")
+        if (user.UserName != Config.AdminName)
         {
             <tr>
                 <td>@user.UserName</td>
