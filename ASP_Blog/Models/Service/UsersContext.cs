@@ -16,10 +16,12 @@ namespace ASP_Blog.Models.Config
             Database.EnsureCreated();
         }
 
+        // Создаем начального пользователя Administrator с правами admin
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
+            // Создаем роль администратора
             IdentityRole adminRole = new IdentityRole()
             {
                 Id = Guid.NewGuid().ToString(),
@@ -27,6 +29,7 @@ namespace ASP_Blog.Models.Config
                 NormalizedName = "ADMIN"
             };
 
+            // Создаем пользователя Администратора
             User adminUser = new User()
             {
                 Id = Guid.NewGuid().ToString(),
@@ -39,10 +42,13 @@ namespace ASP_Blog.Models.Config
                 SecurityStamp = string.Empty
             };
 
+            // Заносим роль в БД
             builder.Entity<IdentityRole>().HasData(adminRole);
 
+            // Заносим пользователя в БД
             builder.Entity<User>().HasData(adminUser);
 
+            // Пользователю Administrator присваиваем роль admin
             builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
                 RoleId = adminRole.Id,
