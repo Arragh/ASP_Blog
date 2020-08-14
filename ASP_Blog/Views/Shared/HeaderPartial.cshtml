@@ -20,6 +20,13 @@
         <tr height="50">
             <td align="center">
                 <a asp-controller="Home" asp-action="Index">Главная</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("admin"))
+                    {
+                        @Html.ActionLink("Права доступа", "Index", "Roles")
+                    }
+                }
             </td>
         </tr>
     </table>

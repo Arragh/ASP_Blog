@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ASP_Blog.Models.Identity;
 using ASP_Blog.ViewModels.Account;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
