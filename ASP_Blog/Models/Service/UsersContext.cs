@@ -30,11 +30,11 @@ namespace ASP_Blog.Models.Config
             User adminUser = new User()
             {
                 Id = Guid.NewGuid().ToString(),
-                UserName = "Administrator",
-                NormalizedUserName = "ADMINISTRATOR",
+                UserName = Config.AdminName,
+                NormalizedUserName = Config.NormalizedAdminName,
                 Email = Config.AdminEmail,
                 NormalizedEmail = Config.NormalizedAdminEmail,
-                PasswordHash = new PasswordHasher<User>().HashPassword(null, "Qwe!23"),
+                PasswordHash = new PasswordHasher<User>().HashPassword(null, Config.AdminPassword),
                 EmailConfirmed = true,
                 SecurityStamp = string.Empty
             };
