@@ -47,8 +47,8 @@ namespace ASP_Blog.Controllers
             News news = websiteDB.News.First(n => n.Id == newsId);
 
             int pageSize = 10;
-            IQueryable<Comment> source = websiteDB.Comments;
-            List<Comment> comments = await source.Where(c => c.NewsId == newsId).OrderByDescending(c => c.CommentDate).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            IQueryable<Comment> source = websiteDB.Comments.Where(c => c.NewsId == newsId);
+            List<Comment> comments = await source.OrderByDescending(c => c.CommentDate).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             int commentsCount = await source.CountAsync();
 
             ViewCommentsViewModel model = new ViewCommentsViewModel()
