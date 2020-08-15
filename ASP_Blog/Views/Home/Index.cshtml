@@ -22,7 +22,10 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2" align="right">
+            <td align="left">
+                @Html.ActionLink("Комментарии", "ViewComments", "Home", new { newsId = news.Id })
+            </td>
+            <td align="right">
                 @news.UserName
             </td>
         </tr>

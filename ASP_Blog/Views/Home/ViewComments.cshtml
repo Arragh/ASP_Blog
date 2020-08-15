@@ -1,0 +1,55 @@
+﻿@model ASP_Blog.ViewModels.Home.ViewCommentsViewModel
+
+<span style="white-space: pre-line">@Model.News.NewsBody</span>
+
+<table width="100%" border="1" valign="top">
+    <tr>
+        <td colspan="2" align="center">
+            <form asp-action="AddComment" asp-controller="Home" method="post">
+                <div>
+                    <input type="hidden" name="NewsId" value="@Model.News.Id" />
+                    <textarea name="CommentBody" rows="20" cols="70"></textarea>
+                </div>
+                <div>
+                    <input type="submit" value="Отправить" />
+                </div>
+            </form>
+        </td>
+    </tr>
+    
+        @foreach (var comment in Model.Comments)
+        {
+         <tr>
+            <td width="20%">
+                @comment.UserName
+                <br />
+                @comment.CommentDate
+            </td>
+            <td>
+                <span style="white-space: pre-line">@comment.CommentBody</span>
+</td>
+         </tr>
+        }
+    
+</table>
+
+<center>
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        if (i != Model.CurrentPage)
+        {
+            @Html.ActionLink(i.ToString(), "ViewComments", new { newsId = Model.News.Id, pageNumber = i })
+            <span>&nbsp;</span>
+        }
+        else
+        {
+            @i
+            <span>&nbsp;</span>
+        }
+    }
+</center>
+
+@section scripts
+{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -19,6 +19,7 @@ namespace ASP_Blog.Controllers
             websiteDB = websiteContext;
         }
 
+        #region Index
         public async Task<IActionResult> Index(int pageNumber = 1)
         {
             int pageSize = 10;
@@ -36,6 +37,50 @@ namespace ASP_Blog.Controllers
                 TotalPages = (int)Math.Ceiling(newsCount / (double)pageSize)
             };
 
+            return View(model);
+        }
+        #endregion
+
+        [HttpGet]
+        public async Task<IActionResult> ViewComments(Guid newsId, int pageNumber = 1)
+        {
+            News news = websiteDB.News.First(n => n.Id == newsId);
+
+            int pageSize = 10;
+            IQueryable<Comment> source = websiteDB.Comments;
+            List<Comment> comments = await source.Where(c => c.NewsId == newsId).OrderByDescending(c => c.CommentDate).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            int commentsCount = await source.CountAsync();
+
+            ViewCommentsViewModel model = new ViewCommentsViewModel()
+            {
+                News = news,
+                Comments = comments,
+                CurrentPage = pageNumber,
+                TotalPages = (int)Math.Ceiling(commentsCount / (double)pageSize)
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddComment(AddCommentViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Comment comment = new Comment()
+                {
+                    Id = Guid.NewGuid(),
+                    CommentBody = model.CommentBody,
+                    CommentDate = DateTime.Now,
+                    NewsId = model.NewsId,
+                    UserName = User.Identity.Name
+                };
+
+                await websiteDB.Comments.AddAsync(comment);
+                await websiteDB.SaveChangesAsync();
+
+                return RedirectToAction("ViewComments", "Home", new { newsId = model.NewsId });
+            }
             return View(model);
         }
     }
