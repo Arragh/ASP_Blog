@@ -2,6 +2,7 @@
 
 @foreach (var news in Model.News)
 {
+    int commentsCount = 0;
     <table border="1" width="100%">
         <tr bgcolor="#47A7C7">
             <td width="80%">@news.NewsTitle</td>
@@ -24,6 +25,14 @@
         <tr>
             <td align="left">
                 @Html.ActionLink("Комментарии", "ViewComments", "Home", new { newsId = news.Id })
+                @foreach (var item in ViewBag.Arr)
+                {
+                    if (item == news.Id)
+                    {
+                        commentsCount++;
+                    }
+                }
+                (@commentsCount)
             </td>
             <td align="right">
                 @news.UserName

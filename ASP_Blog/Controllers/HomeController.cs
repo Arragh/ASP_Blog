@@ -37,10 +37,14 @@ namespace ASP_Blog.Controllers
                 TotalPages = (int)Math.Ceiling(newsCount / (double)pageSize)
             };
 
+            IQueryable<Guid> arr = websiteDB.Comments.Select(c => c.NewsId);
+            ViewBag.Arr = arr;
+
             return View(model);
         }
         #endregion
 
+        #region Просмотр комментариев
         [HttpGet]
         public async Task<IActionResult> ViewComments(Guid newsId, int pageNumber = 1)
         {
@@ -61,7 +65,9 @@ namespace ASP_Blog.Controllers
 
             return View(model);
         }
+        #endregion
 
+        #region Добавление комментария [POST]
         [HttpPost]
         public async Task<IActionResult> AddComment(AddCommentViewModel model)
         {
@@ -83,5 +89,6 @@ namespace ASP_Blog.Controllers
             }
             return View(model);
         }
+        #endregion
     }
 }
