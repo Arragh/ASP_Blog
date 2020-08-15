@@ -31,7 +31,7 @@ namespace ASP_Blog.Controllers
 
         #region Создать роль [GET]
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult CreateRole()
         {
             return View();
         }
@@ -39,7 +39,7 @@ namespace ASP_Blog.Controllers
 
         #region Создать роль [POST]
         [HttpPost]
-        public async Task<IActionResult> Create(CreateRoleViewModel model)
+        public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -62,7 +62,7 @@ namespace ASP_Blog.Controllers
 
         #region Удалить роль [POST
         [HttpPost]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> DeleteRole(string id)
         {
             // Ищем роль по Id
             IdentityRole role = await _roleManager.FindByIdAsync(id);
@@ -86,7 +86,7 @@ namespace ASP_Blog.Controllers
 
         #region Редактирование ролей пользователя [GET]
         [HttpGet]
-        public async Task<IActionResult> Edit(string userId)
+        public async Task<IActionResult> EditRole(string userId)
         {
             // Ищем юзера по Id
             User user = await _userManager.FindByIdAsync(userId);
@@ -111,7 +111,7 @@ namespace ASP_Blog.Controllers
 
         #region Редактирование ролей пользователя [POST]
         [HttpPost]
-        public async Task<IActionResult> Edit(string userId, List<string> roles)
+        public async Task<IActionResult> EditRole(string userId, List<string> roles)
         {
             // Получаем пользователя по Id
             User user = await _userManager.FindByIdAsync(userId);

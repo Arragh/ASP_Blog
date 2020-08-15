@@ -10,6 +10,7 @@ namespace ASP_Blog.Models.Home
         public Guid Id { get; set; }
         public string NewsTitle { get; set; }
         public string NewsBody { get; set; }
-        public DateTime NewsDate { get; set; } 
+        public DateTime NewsDate { get; set; }
+        public string UserName { get; set; }
     }
 }

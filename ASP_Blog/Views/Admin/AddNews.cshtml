@@ -1,0 +1,28 @@
+﻿@model ASP_Blog.ViewModels.Admin.AddNewsViewModel
+
+    <form asp-action="AddNews" asp-controller="Admin" method="post" enctype="multipart/form-data">
+        <div>
+            <label asp-for="NewsTitle"></label><br />
+            <input type="text" asp-for="NewsTitle" />
+            <span asp-validation-for="NewsTitle"></span><br />
+        </div>
+        <div>
+            <label asp-for="NewsBody"></label><br />
+            <textarea asp-for="NewsBody" rows="20" cols="70"></textarea>
+            <span asp-validation-for="NewsBody"></span><br />
+        </div>
+        <div>
+            <span asp-validation-for="NewsImage"></span><br />
+            <input type="file" name="uploads" /><br />
+            <input type="file" name="uploads" /><br />
+            <input type="file" name="uploads" /><br />
+        </div>
+        <div>
+            <input type="submit" value="Создать" />
+        </div>
+    </form>
+
+@section scripts
+{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

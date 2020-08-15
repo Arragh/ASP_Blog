@@ -1,5 +1,47 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model ASP_Blog.ViewModels.Home.IndexViewModel
+
+@foreach (var news in Model.News)
+{
+    <table border="1" width="100%">
+        <tr bgcolor="#47A7C7">
+            <td width="80%">@news.NewsTitle</td>
+            <td width="20%">@news.NewsDate.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span style="white-space: pre-line">@news.NewsBody</span><br />
+                <center>
+                    @foreach (var image in Model.Images)
+                    {
+                        if (image.NewsId == news.Id)
+                        {
+                            <a href="@Url.Content(image.ImagePath)"><img style="width:200px; height:auto;" src="@Url.Content(image.ImagePath)" /></a>
+                        }
+                    }
+                </center>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="right">
+                @news.UserName
+            </td>
+        </tr>
+    </table>
+    <br /><br />
 }
+
+<center>
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        if (i != Model.CurrentPage)
+        {
+            @Html.ActionLink(i.ToString(), "Index", new { pageNumber = i })
+            <span>&nbsp;</span>
+        }
+        else
+        {
+            @i
+            <span>&nbsp;</span>
+        }
+    }
+</center>

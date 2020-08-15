@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ASP_Blog.ViewModels.Home
+namespace ASP_Blog.ViewModels.Admin
 {
     public class AddNewsViewModel
     {
@@ -21,7 +21,7 @@ namespace ASP_Blog.ViewModels.Home
         [DataType(DataType.Text)]
         public string NewsBody { get; set; }
 
-        [Display(Name = "Загружить изображение")]
+        [Display(Name = "Загрузить изображение")]
         public Image NewsImage { get; set; }
     }
 }
