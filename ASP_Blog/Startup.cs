@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ASP_Blog.Models.Config;
 using ASP_Blog.Models.Identity;
+using ASP_Blog.Models.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +22,7 @@ namespace ASP_Blog
         {
             Configuration.Bind("ASP_Blog_Settings", new Config());
 
+            services.AddDbContext<WebsiteContext>(options => options.UseSqlServer(Config.ASP_Blog_WebsiteDB));
             services.AddDbContext<UsersContext>(options => options.UseSqlServer(Config.ASP_Blog_UsersDB));
             services.AddIdentity<User, IdentityRole>(options =>
             {

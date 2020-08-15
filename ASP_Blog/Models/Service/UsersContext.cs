@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ASP_Blog.Models.Config
+namespace ASP_Blog.Models.Service
 {
     public class UsersContext : IdentityDbContext<User>
     {
