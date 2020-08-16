@@ -5,15 +5,22 @@
 <table width="100%" border="1" valign="top">
     <tr>
         <td colspan="2" align="center">
-            <form asp-action="AddComment" asp-controller="Home" method="post">
-                <div>
-                    <input type="hidden" name="TargetId" value="@Model.News.Id" />
-                    <textarea name="CommentBody" rows="20" cols="70"></textarea>
-                </div>
-                <div>
-                    <input type="submit" value="Отправить" />
-                </div>
-            </form>
+            @if (User.Identity.IsAuthenticated)
+	        {
+                <form asp-action="AddComment" asp-controller="Home" method="post">
+                    <div>
+                        <input type="hidden" name="TargetId" value="@Model.News.Id" />
+                        <textarea name="CommentBody" rows="20" cols="70"></textarea>
+                    </div>
+                    <div>
+                        <input type="submit" value="Отправить" />
+                    </div>
+                </form>
+            }
+            else
+            {
+                <h3>Только зарегистрированные пользователи могут оставлять комментарии.</h3>
+            }
         </td>
     </tr>
     

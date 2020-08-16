@@ -90,5 +90,10 @@ namespace ASP_Blog.Controllers
             return View(model);
         }
         #endregion
+
+        public IActionResult Galleries()
+        {
+            return View();
+        }
     }
 }

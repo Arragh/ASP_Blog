@@ -19,9 +19,9 @@
         </tr>
         <tr height="50">
             <td align="center">
-                <a asp-controller="Home" asp-action="Index">Главная</a>
+                <a asp-action="Index" asp-controller="Home">Главная</a>
                 &nbsp;&nbsp;&nbsp;
-                Галерея
+                <a asp-action="Galleries" asp-controller="Home">Галерея</a>
                 @if (User.Identity.IsAuthenticated)
                 {
                     <span>&nbsp;&nbsp;&nbsp;</span>

@@ -93,5 +93,32 @@ namespace ASP_Blog.Controllers
             return View(model);
         }
         #endregion
+
+        [HttpGet]
+        public IActionResult AddGallery()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddGallery(AddGalleryViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Gallery gallery = new Gallery()
+                {
+                    Id = Guid.NewGuid(),
+                    GalleryTitle = model.GalleryTitle,
+                    GalleryDescription = model.GalleryDescription,
+                    GalleryDate = DateTime.Now
+                };
+
+                await websiteDB.Galleries.AddAsync(gallery);
+                await websiteDB.SaveChangesAsync();
+
+                return RedirectToAction("Gallery", "Home", new { galleryId = gallery.Id });
+            }
+            return View(model);
+        }
     }
 }
