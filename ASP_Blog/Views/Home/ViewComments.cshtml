@@ -7,7 +7,7 @@
         <td colspan="2" align="center">
             <form asp-action="AddComment" asp-controller="Home" method="post">
                 <div>
-                    <input type="hidden" name="NewsId" value="@Model.News.Id" />
+                    <input type="hidden" name="TargetId" value="@Model.News.Id" />
                     <textarea name="CommentBody" rows="20" cols="70"></textarea>
                 </div>
                 <div>
@@ -27,7 +27,7 @@
             </td>
             <td>
                 <span style="white-space: pre-line">@comment.CommentBody</span>
-</td>
+            </td>
          </tr>
         }
     

@@ -10,6 +10,6 @@ namespace ASP_Blog.Models.Home
         public Guid Id { get; set; }
         public string ImageName { get; set; }
         public string ImagePath { get; set; }
-        public Guid NewsId { get; set; }
+        public Guid TargetId { get; set; }
     }
 }

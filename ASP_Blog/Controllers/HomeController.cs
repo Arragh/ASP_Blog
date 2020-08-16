@@ -78,14 +78,14 @@ namespace ASP_Blog.Controllers
                     Id = Guid.NewGuid(),
                     CommentBody = model.CommentBody,
                     CommentDate = DateTime.Now,
-                    NewsId = model.NewsId,
+                    NewsId = model.TargetId,
                     UserName = User.Identity.Name
                 };
 
                 await websiteDB.Comments.AddAsync(comment);
                 await websiteDB.SaveChangesAsync();
 
-                return RedirectToAction("ViewComments", "Home", new { newsId = model.NewsId });
+                return RedirectToAction("ViewComments", "Home", new { newsId = model.TargetId });
             }
             return View(model);
         }

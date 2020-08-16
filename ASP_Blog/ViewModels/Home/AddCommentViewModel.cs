@@ -13,6 +13,6 @@ namespace ASP_Blog.ViewModels.Home
         [StringLength(3000, ErrorMessage = "Длина комментария должна быть от {1} да {2} символов.", MinimumLength = 1)]
         [DataType(DataType.Text)]
         public string CommentBody { get; set; }
-        public Guid NewsId { get; set; }
+        public Guid TargetId { get; set; }
     }
 }

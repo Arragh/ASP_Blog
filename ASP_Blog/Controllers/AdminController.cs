@@ -18,6 +18,7 @@ namespace ASP_Blog.Controllers
     {
         WebsiteContext websiteDB;
         IWebHostEnvironment _appEnvironment;
+
         public AdminController(WebsiteContext webContext, IWebHostEnvironment appEnvironment)
         {
             websiteDB = webContext;
@@ -29,12 +30,15 @@ namespace ASP_Blog.Controllers
             return View();
         }
 
+        #region Добавление новости [GET]
         [HttpGet]
         public IActionResult AddNews()
         {
             return View();
         }
+        #endregion
 
+        #region Добавление новости [POST]
         [HttpPost]
         public async Task<IActionResult> AddNews(AddNewsViewModel model, IFormFileCollection uploads)
         {
@@ -73,7 +77,7 @@ namespace ASP_Blog.Controllers
                         await uploadedImage.CopyToAsync(file);
                     }
                     // Создаем объект класса Image со всеми параметрами
-                    Image image = new Image { Id = Guid.NewGuid(), ImageName = imageName, ImagePath = path, NewsId = news.Id };
+                    Image image = new Image { Id = Guid.NewGuid(), ImageName = imageName, ImagePath = path, TargetId = news.Id };
                     // Добавляем объект класса Image в ранее созданный список images
                     images.Add(image);
                 }
@@ -88,5 +92,6 @@ namespace ASP_Blog.Controllers
             // Редирект на случай невалидности модели
             return View(model);
         }
+        #endregion
     }
 }

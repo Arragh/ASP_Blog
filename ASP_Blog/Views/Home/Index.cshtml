@@ -14,7 +14,7 @@
                 <center>
                     @foreach (var image in Model.Images)
                     {
-                        if (image.NewsId == news.Id)
+                        if (image.TargetId == news.Id)
                         {
                             <a href="@Url.Content(image.ImagePath)"><img style="width:200px; height:auto;" src="@Url.Content(image.ImagePath)" /></a>
                         }
