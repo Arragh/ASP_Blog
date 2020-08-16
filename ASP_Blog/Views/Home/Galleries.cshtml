@@ -1,1 +1,14 @@
-﻿<h2>Тут будет список всех галерей</h2>
+﻿@model ICollection<ASP_Blog.Models.Home.Gallery>
+
+<table border="1" width="100%">
+    @foreach (var gallery in Model)
+	{
+		 <tr>
+             <td width="20%">тут должна быть превью-картинка</td>
+			 <td>
+                 <h3>@gallery.GalleryTitle</h3><br />
+				@gallery.GalleryDescription
+			 </td>
+		 </tr>
+	}
+</table>

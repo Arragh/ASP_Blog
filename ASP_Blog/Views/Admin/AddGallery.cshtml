@@ -1,0 +1,17 @@
+﻿@model ASP_Blog.ViewModels.Admin.AddGalleryViewModel
+
+<form asp-action="AddGallery" asp-controller="Admin" method="post">
+    <div>
+        <label asp-for="GalleryTitle"></label><br />
+        <input type="text" asp-for="GalleryTitle" />
+        <span asp-validation-for="GalleryTitle"></span><br />
+    </div>
+    <div>
+        <label asp-for="GalleryDescription"></label><br />
+        <textarea asp-for="GalleryDescription" rows="10" cols="30"></textarea>
+        <span asp-validation-for="GalleryDescription"></span><br />
+    </div>
+    <div>
+        <input type="submit" value="Создать" />
+    </div>
+</form>

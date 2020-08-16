@@ -91,9 +91,10 @@ namespace ASP_Blog.Controllers
         }
         #endregion
 
-        public IActionResult Galleries()
+        public async Task<IActionResult> Galleries()
         {
-            return View();
+            List<Gallery> galleries = await websiteDB.Galleries.OrderByDescending(g => g.GalleryDate).ToListAsync();
+            return View(galleries);
         }
     }
 }
