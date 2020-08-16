@@ -63,15 +63,17 @@ namespace ASP_Blog.Controllers
                 List<Image> images = new List<Image>();
                 foreach (var uploadedImage in uploads)
                 {
+                    // Присваиваем загружаемому файлу уникальное имя на основе Guid
+                    string imageName = Guid.NewGuid() + "_" + uploadedImage.FileName;
                     // Путь сохранения файла
-                    string path = "/files/" + uploadedImage.FileName;
+                    string path = "/files/" + imageName;
                     // сохраняем файл в папку files в каталоге wwwroot
                     using (FileStream file = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                     {
                         await uploadedImage.CopyToAsync(file);
                     }
                     // Создаем объект класса Image со всеми параметрами
-                    Image image = new Image { Id = Guid.NewGuid(), ImageName = uploadedImage.FileName, ImagePath = path, NewsId = news.Id };
+                    Image image = new Image { Id = Guid.NewGuid(), ImageName = imageName, ImagePath = path, NewsId = news.Id };
                     // Добавляем объект класса Image в ранее созданный список images
                     images.Add(image);
                 }

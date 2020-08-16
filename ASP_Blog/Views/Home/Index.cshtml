@@ -25,9 +25,9 @@
         <tr>
             <td align="left">
                 @Html.ActionLink("Комментарии", "ViewComments", "Home", new { newsId = news.Id })
-                @foreach (var item in ViewBag.Arr)
+                @foreach (var newsId in ViewBag.Comments)
                 {
-                    if (item == news.Id)
+                    if (newsId == news.Id)
                     {
                         commentsCount++;
                     }

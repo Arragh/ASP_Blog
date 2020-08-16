@@ -38,7 +38,7 @@ namespace ASP_Blog.Controllers
             };
 
             IQueryable<Guid> arr = websiteDB.Comments.Select(c => c.NewsId);
-            ViewBag.Arr = arr;
+            ViewBag.Comments = arr;
 
             return View(model);
         }
