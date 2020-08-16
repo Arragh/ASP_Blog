@@ -120,5 +120,41 @@ namespace ASP_Blog.Controllers
             }
             return View(model);
         }
+
+        public async Task<IActionResult> AddImageToGallery(Guid galleryId, IFormFileCollection uploads)
+        {
+            // Проверяем размер каждого изображения
+            foreach (var image in uploads)
+            {
+                if (image.Length > 2097152)
+                {
+                    ModelState.AddModelError("Image", "Размер изображения должен быть не более 2МБ.");
+                    break;
+                }
+            }
+
+            List<Image> images = new List<Image>();
+            foreach (var uploadedImage in uploads)
+            {
+                // Присваиваем загружаемому файлу уникальное имя на основе Guid
+                string imageName = Guid.NewGuid() + "_" + uploadedImage.FileName;
+                // Путь сохранения файла
+                string path = "/files/" + imageName;
+                // сохраняем файл в папку files в каталоге wwwroot
+                using (FileStream file = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await uploadedImage.CopyToAsync(file);
+                }
+                // Создаем объект класса Image со всеми параметрами
+                Image image = new Image { Id = Guid.NewGuid(), ImageName = imageName, ImagePath = path, TargetId = galleryId };
+                // Добавляем объект класса Image в ранее созданный список images
+                images.Add(image);
+            }
+
+            await websiteDB.Images.AddRangeAsync(images);
+            await websiteDB.SaveChangesAsync();
+
+            return RedirectToAction("Gallery", "Home", new { galleryId });
+        }
     }
 }

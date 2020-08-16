@@ -8,6 +8,7 @@ namespace ASP_Blog.ViewModels.Home
 {
     public class GalleryViewModel
     {
+        public Guid GalleryId { get; set; }
         public string GalleryTitle { get; set; }
         public string GalleryDescription { get; set; }
         public List<Image> Images { get; set; }

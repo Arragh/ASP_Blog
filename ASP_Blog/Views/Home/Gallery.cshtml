@@ -1,0 +1,21 @@
+﻿@model ASP_Blog.ViewModels.Home.GalleryViewModel
+
+@if (User.IsInRole("admin"))
+{
+    <form asp-action="AddImageToGallery" asp-controller="Admin" asp-route-galleryId="@Model.GalleryId" enctype="multipart/form-data">
+        <input type="file" name="uploads" multiple="" />
+        <input type="submit" value="Загрузить" />
+    </form>
+}
+<h2>@Model.GalleryTitle</h2>
+<span>@Model.GalleryDescription</span><br /><br />
+<table border="1" width="100%">
+    <tr>
+        <td>
+            @foreach (var image in Model.Images)
+	        {
+		        <a href="@Url.Content(image.ImagePath)"><img style="width:200px; height:auto;" src="@Url.Content(image.ImagePath)" /></a>
+	        }
+        </td>
+    </tr>
+</table>

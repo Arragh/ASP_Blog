@@ -91,10 +91,29 @@ namespace ASP_Blog.Controllers
         }
         #endregion
 
+        #region Список галерей
         public async Task<IActionResult> Galleries()
         {
             List<Gallery> galleries = await websiteDB.Galleries.OrderByDescending(g => g.GalleryDate).ToListAsync();
             return View(galleries);
+        }
+        #endregion
+
+        public async Task<IActionResult> Gallery(Guid galleryId)
+        {
+            Gallery gallery = websiteDB.Galleries.First(g => g.Id == galleryId);
+
+            List<Image> images = await websiteDB.Images.Where(i => i.TargetId == galleryId).ToListAsync();
+
+            GalleryViewModel model = new GalleryViewModel()
+            {
+                GalleryId = gallery.Id,
+                GalleryTitle = gallery.GalleryTitle,
+                GalleryDescription = gallery.GalleryDescription,
+                Images = images
+            };
+
+            return View(model);
         }
     }
 }

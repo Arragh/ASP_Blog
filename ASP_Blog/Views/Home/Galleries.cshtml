@@ -6,7 +6,7 @@
 		 <tr>
              <td width="20%">тут должна быть превью-картинка</td>
 			 <td>
-                 <h3>@gallery.GalleryTitle</h3><br />
+                 <a asp-action="Gallery" asp-controller="Home" asp-route-galleryId="@gallery.Id">@gallery.GalleryTitle</a><br />
 				@gallery.GalleryDescription
 			 </td>
 		 </tr>
