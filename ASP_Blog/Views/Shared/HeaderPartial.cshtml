@@ -22,15 +22,12 @@
                 <a asp-action="Index" asp-controller="Home">Главная</a>
                 &nbsp;&nbsp;&nbsp;
                 <a asp-action="Galleries" asp-controller="Home">Галерея</a>
-                @if (User.Identity.IsAuthenticated)
+                @if (User.IsInRole("admin"))
                 {
                     <span>&nbsp;&nbsp;&nbsp;</span>
-                    if (User.IsInRole("admin"))
-                    {
-                        @Html.ActionLink("Права доступа", "Index", "Roles")
-                        <span>&nbsp;&nbsp;&nbsp;</span>
-                        @Html.ActionLink("Панель администратора", "Index", "Admin")
-                    }
+                    @Html.ActionLink("Права доступа", "Index", "Roles")
+                    <span>&nbsp;&nbsp;&nbsp;</span>
+                    @Html.ActionLink("Панель администратора", "Index", "Admin")
                 }
             </td>
         </tr>
