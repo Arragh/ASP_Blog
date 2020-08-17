@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASP_Blog.Controllers
 {
@@ -94,12 +95,33 @@ namespace ASP_Blog.Controllers
         }
         #endregion
 
+        #region Удалить новость [POST]
+        public async Task<IActionResult> DeleteNews(Guid newsId)
+        {
+            News news = new News()
+            {
+                Id = newsId
+            };
+
+            List<Image> images = await websiteDB.Images.Where(i => i.TargetId == newsId).ToListAsync();
+
+            websiteDB.Images.RemoveRange(images);
+            websiteDB.News.Remove(news);
+            await websiteDB.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
+        #endregion
+
+        #region Создать галерею [GET]
         [HttpGet]
         public IActionResult AddGallery()
         {
             return View();
         }
+        #endregion
 
+        #region Создать галерею [POST]
         [HttpPost]
         public async Task<IActionResult> AddGallery(AddGalleryViewModel model)
         {
@@ -120,7 +142,27 @@ namespace ASP_Blog.Controllers
             }
             return View(model);
         }
+        #endregion
 
+        #region Удалить галерею [POST]
+        public async Task<IActionResult> DeleteGallery(Guid galleryId)
+        {
+            Gallery gallery = new Gallery()
+            {
+                Id = galleryId
+            };
+
+            List<Image> images = await websiteDB.Images.Where(i => i.TargetId == galleryId).ToListAsync();
+
+            websiteDB.Images.RemoveRange(images);
+            websiteDB.Galleries.Remove(gallery);
+            await websiteDB.SaveChangesAsync();
+
+            return RedirectToAction("Galleries", "Home");
+        }
+        #endregion
+
+        #region Добавить изображение в галерею
         public async Task<IActionResult> AddImageToGallery(Guid galleryId, IFormFileCollection uploads)
         {
             // Проверяем размер каждого изображения
@@ -156,5 +198,8 @@ namespace ASP_Blog.Controllers
 
             return RedirectToAction("Gallery", "Home", new { galleryId });
         }
+        #endregion
+
+
     }
 }

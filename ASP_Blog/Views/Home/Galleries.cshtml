@@ -18,6 +18,12 @@
             <td>
                 <a asp-action="Gallery" asp-controller="Home" asp-route-galleryId="@gallery.Id">@gallery.GalleryTitle</a><br />
                 @gallery.GalleryDescription
+                @if (User.IsInRole("admin"))
+                {
+                    <br />
+                    <p align="right">@Html.ActionLink("Удалить галерею", "DeleteGallery", "Admin", new { galleryId = gallery.Id })</p>
+                    
+                }
             </td>
         </tr>
     }

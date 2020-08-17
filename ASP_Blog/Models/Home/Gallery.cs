@@ -12,6 +12,5 @@ namespace ASP_Blog.Models.Home
         public string GalleryTitle { get; set; }
         public string GalleryDescription { get; set; }
         public DateTime GalleryDate { get; set; }
-        public virtual ICollection<Image> Images { get; set; }
     }
 }

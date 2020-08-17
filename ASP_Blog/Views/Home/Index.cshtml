@@ -45,6 +45,10 @@
                 (@commentsCount)
             </td>
             <td align="right">
+                @if (User.IsInRole("admin"))
+                {
+                    @Html.ActionLink("Удалить запись", "DeleteNews", "Admin", new { newsId = news.Id })
+                }
                 @news.UserName
             </td>
         </tr>
