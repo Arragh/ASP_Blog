@@ -2,28 +2,23 @@
 
 <span style="white-space: pre-line">@Model.News.NewsBody</span>
 
+<br /><br />
+
+<center>
+@if (User.Identity.IsAuthenticated)
+{
+    @Html.ActionLink("Комментировать", "AddComment", "Home", new { newsId = Model.News.Id })
+}
+else
+{
+    <b>Только зарегистрированные пользователи могут оставлять комментарии.</b>
+}
+</center>
+
+<br /><br />
+
 <table width="100%" border="1" valign="top">
-    <tr>
-        <td colspan="2" align="center">
-            @if (User.Identity.IsAuthenticated)
-	        {
-                <form asp-action="AddComment" asp-controller="Home" method="post">
-                    <div>
-                        <input type="hidden" name="TargetId" value="@Model.News.Id" />
-                        <textarea name="CommentBody" rows="20" cols="70"></textarea>
-                    </div>
-                    <div>
-                        <input type="submit" value="Отправить" />
-                    </div>
-                </form>
-            }
-            else
-            {
-                <h3>Только зарегистрированные пользователи могут оставлять комментарии.</h3>
-            }
-        </td>
-    </tr>
-    
+        
         @foreach (var comment in Model.Comments)
         {
          <tr>
@@ -56,7 +51,3 @@
     }
 </center>
 
-@section scripts
-{
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

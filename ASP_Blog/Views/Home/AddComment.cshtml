@@ -1,0 +1,23 @@
+﻿@model ASP_Blog.ViewModels.Home.AddCommentViewModel
+
+<table border="1" width="100%">
+    <tr>
+        <td colspan="2" align="center">
+            <form asp-action="AddComment" asp-controller="Home" method="post">
+                <div>
+                    <input type="hidden" asp-for="TargetId" value="@ViewBag.NewsId" />
+                    <textarea asp-for="CommentBody" rows="20" cols="70"></textarea><br />
+                    <span asp-validation-for="CommentBody"></span><br />
+                </div>
+                <div>
+                    <input type="submit" value="Отправить" />
+                </div>
+            </form>
+        </td>
+    </tr>
+</table>
+
+@section scripts
+{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

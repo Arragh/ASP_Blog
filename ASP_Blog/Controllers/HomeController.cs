@@ -2,6 +2,7 @@
 using ASP_Blog.Models.Service;
 using ASP_Blog.ViewModels.Home;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -64,6 +65,15 @@ namespace ASP_Blog.Controllers
             };
 
             return View(model);
+        }
+        #endregion
+
+        #region Добавление комментария [GET]
+        [HttpGet]
+        public IActionResult AddComment(Guid newsId)
+        {
+            ViewBag.NewsId = newsId;
+            return View();
         }
         #endregion
 

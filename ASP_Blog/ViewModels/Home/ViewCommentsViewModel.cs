@@ -12,6 +12,5 @@ namespace ASP_Blog.ViewModels.Home
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
         public List<Comment> Comments { get; set; }
-        public AddCommentViewModel AddComment { get; set; }
     }
 }

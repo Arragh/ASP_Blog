@@ -1,16 +1,24 @@
 ﻿@model ICollection<ASP_Blog.Models.Home.Gallery>
 
+<center>
 <h2>Галерея</h2>
+
+@if (User.IsInRole("admin"))
+{
+    @Html.ActionLink("Создать галерею", "AddGallery", "Admin")
+    <br /><br />
+}
+</center>
 
 <table border="1" width="100%">
     @foreach (var gallery in Model)
-	{
-		 <tr>
-             <td width="20%">тут должна быть превью-картинка</td>
-			 <td>
-                 <a asp-action="Gallery" asp-controller="Home" asp-route-galleryId="@gallery.Id">@gallery.GalleryTitle</a><br />
-				@gallery.GalleryDescription
-			 </td>
-		 </tr>
-	}
+    {
+        <tr>
+            <td width="20%">тут должна быть превью-картинка</td>
+            <td>
+                <a asp-action="Gallery" asp-controller="Home" asp-route-galleryId="@gallery.Id">@gallery.GalleryTitle</a><br />
+                @gallery.GalleryDescription
+            </td>
+        </tr>
+    }
 </table>

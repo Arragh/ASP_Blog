@@ -1,5 +1,15 @@
 ﻿@model ASP_Blog.ViewModels.Home.IndexViewModel
 
+<center>
+<h2>Главная страница</h2>
+
+@if (User.IsInRole("admin"))
+{
+    @Html.ActionLink("Добавить новость", "AddNews", "Admin")
+    <br /><br />
+}
+</center>
+
 @foreach (var news in Model.News)
 {
     int commentsCount = 0;
@@ -39,7 +49,8 @@
             </td>
         </tr>
     </table>
-    <br /><br />
+    <br />
+    <br />
 }
 
 <center>

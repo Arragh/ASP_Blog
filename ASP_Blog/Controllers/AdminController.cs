@@ -86,7 +86,7 @@ namespace ASP_Blog.Controllers
                 await websiteDB.News.AddAsync(news);
                 await websiteDB.SaveChangesAsync();
 
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("Index", "Home");
             }
 
             // Редирект на случай невалидности модели
