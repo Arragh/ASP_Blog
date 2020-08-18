@@ -109,6 +109,7 @@ namespace ASP_Blog.Controllers
         }
         #endregion
 
+        #region Просмотр галереи
         public async Task<IActionResult> Gallery(Guid galleryId)
         {
             Gallery gallery = websiteDB.Galleries.First(g => g.Id == galleryId);
@@ -125,5 +126,6 @@ namespace ASP_Blog.Controllers
 
             return View(model);
         }
+        #endregion
     }
 }
