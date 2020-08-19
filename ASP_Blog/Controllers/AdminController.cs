@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
+using LazZiya.ImageResize;
+using LazZiya.ImageResize.ResizeMethods;
 
 namespace ASP_Blog.Controllers
 {
@@ -65,22 +68,27 @@ namespace ASP_Blog.Controllers
                 };
 
                 // Создаем список изображений
-                List<Image> images = new List<Image>();
+                List<ImageFile> images = new List<ImageFile>();
                 foreach (var uploadedImage in uploads)
                 {
                     // Присваиваем загружаемому файлу уникальное имя на основе Guid
                     string imageName = Guid.NewGuid() + "_" + uploadedImage.FileName;
                     // Путь сохранения файла
-                    string path = "/files/" + imageName;
+                    string pathNormal = "/files/images/normal/" + imageName; // изображение исходного размера
+                    string pathScaled = "/files/images/scaled/" + imageName; // уменьшенное изображение
                     // сохраняем файл в папку files в каталоге wwwroot
-                    using (FileStream file = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    using (FileStream file = new FileStream(_appEnvironment.WebRootPath + pathNormal, FileMode.Create))
                     {
                         await uploadedImage.CopyToAsync(file);
                     }
                     // Создаем объект класса Image со всеми параметрами
-                    Image image = new Image { Id = Guid.NewGuid(), ImageName = imageName, ImagePath = path, TargetId = news.Id };
+                    ImageFile image = new ImageFile { Id = Guid.NewGuid(), ImageName = imageName, ImagePathNormal = pathNormal, ImagePathScaled = pathScaled, TargetId = news.Id };
                     // Добавляем объект класса Image в ранее созданный список images
                     images.Add(image);
+                    // Делаем уменьшенную копию изображения
+                    var img = Image.FromFile(_appEnvironment.WebRootPath + pathNormal);
+                    var scaledImage = ImageResize.Scale(img, 300, 300);
+                    scaledImage.SaveAs(_appEnvironment.WebRootPath + pathScaled);
                 }
                 // Сохраняем новые объекты в БД
                 await websiteDB.Images.AddRangeAsync(images);
@@ -103,7 +111,7 @@ namespace ASP_Blog.Controllers
                 Id = newsId
             };
 
-            List<Image> images = await websiteDB.Images.Where(i => i.TargetId == newsId).ToListAsync();
+            List<ImageFile> images = await websiteDB.Images.Where(i => i.TargetId == newsId).ToListAsync();
 
             websiteDB.Images.RemoveRange(images);
             websiteDB.News.Remove(news);
@@ -152,7 +160,7 @@ namespace ASP_Blog.Controllers
                 Id = galleryId
             };
 
-            List<Image> images = await websiteDB.Images.Where(i => i.TargetId == galleryId).ToListAsync();
+            List<ImageFile> images = await websiteDB.Images.Where(i => i.TargetId == galleryId).ToListAsync();
 
             websiteDB.Images.RemoveRange(images);
             websiteDB.Galleries.Remove(gallery);
@@ -175,7 +183,7 @@ namespace ASP_Blog.Controllers
                 }
             }
 
-            List<Image> images = new List<Image>();
+            List<ImageFile> images = new List<ImageFile>();
             foreach (var uploadedImage in uploads)
             {
                 // Присваиваем загружаемому файлу уникальное имя на основе Guid
@@ -188,7 +196,7 @@ namespace ASP_Blog.Controllers
                     await uploadedImage.CopyToAsync(file);
                 }
                 // Создаем объект класса Image со всеми параметрами
-                Image image = new Image { Id = Guid.NewGuid(), ImageName = imageName, ImagePath = path, TargetId = galleryId };
+                ImageFile image = new ImageFile { Id = Guid.NewGuid(), ImageName = imageName, ImagePathNormal = path, TargetId = galleryId };
                 // Добавляем объект класса Image в ранее созданный список images
                 images.Add(image);
             }

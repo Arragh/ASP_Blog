@@ -14,7 +14,7 @@
         <td>
             @foreach (var image in Model.Images)
 	        {
-		        <a href="@Url.Content(image.ImagePath)"><img style="width:200px; height:auto;" src="@Url.Content(image.ImagePath)" /></a>
+		        <a href="@Url.Content(image.ImagePathNormal)"><img style="width:200px; height:auto;" src="@Url.Content(image.ImagePathScaled)" /></a>
 	        }
         </td>
     </tr>

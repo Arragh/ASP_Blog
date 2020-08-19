@@ -10,7 +10,7 @@ namespace ASP_Blog.Models.Service
     public class WebsiteContext : DbContext
     {
         public DbSet<News> News { get; set; }
-        public DbSet<Image> Images { get; set; }
+        public DbSet<ImageFile> Images { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Gallery> Galleries { get; set; }
 

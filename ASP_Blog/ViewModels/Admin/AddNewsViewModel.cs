@@ -22,6 +22,6 @@ namespace ASP_Blog.ViewModels.Admin
         public string NewsBody { get; set; }
 
         [Display(Name = "Загрузить изображение")]
-        public Image NewsImage { get; set; }
+        public ImageFile NewsImage { get; set; }
     }
 }

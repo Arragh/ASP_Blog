@@ -11,6 +11,6 @@ namespace ASP_Blog.ViewModels.Home
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
         public List<News> News { get; set; }
-        public List<Image> Images { get; set; }
+        public List<ImageFile> Images { get; set; }
     }
 }

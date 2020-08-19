@@ -28,7 +28,7 @@ namespace ASP_Blog.Controllers
             List<News> news = await source.OrderByDescending(n => n.NewsDate).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             int newsCount = await source.CountAsync();
 
-            List<Image> images = await websiteDB.Images.ToListAsync();
+            List<ImageFile> images = await websiteDB.Images.ToListAsync();
 
             IndexViewModel model = new IndexViewModel()
             {
@@ -114,7 +114,7 @@ namespace ASP_Blog.Controllers
         {
             Gallery gallery = websiteDB.Galleries.First(g => g.Id == galleryId);
 
-            List<Image> images = await websiteDB.Images.Where(i => i.TargetId == galleryId).ToListAsync();
+            List<ImageFile> images = await websiteDB.Images.Where(i => i.TargetId == galleryId).ToListAsync();
 
             GalleryViewModel model = new GalleryViewModel()
             {

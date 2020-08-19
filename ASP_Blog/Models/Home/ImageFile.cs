@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace ASP_Blog.Models.Home
 {
-    public class Image
+    public class ImageFile
     {
         public Guid Id { get; set; }
         public string ImageName { get; set; }
-        public string ImagePath { get; set; }
+        public string ImagePathNormal { get; set; }
+        public string ImagePathScaled { get; set; }
         public Guid TargetId { get; set; }
     }
 }

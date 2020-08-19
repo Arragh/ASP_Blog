@@ -11,6 +11,6 @@ namespace ASP_Blog.ViewModels.Home
         public Guid GalleryId { get; set; }
         public string GalleryTitle { get; set; }
         public string GalleryDescription { get; set; }
-        public List<Image> Images { get; set; }
+        public List<ImageFile> Images { get; set; }
     }
 }
