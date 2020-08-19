@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using ASP_Blog.Models.Home;
+﻿using ASP_Blog.Models.Home;
 using ASP_Blog.Models.Service;
 using ASP_Blog.ViewModels.Admin;
+using LazZiya.ImageResize;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
-using LazZiya.ImageResize;
-using LazZiya.ImageResize.ResizeMethods;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ASP_Blog.Controllers
 {
@@ -85,10 +84,11 @@ namespace ASP_Blog.Controllers
                     ImageFile image = new ImageFile { Id = Guid.NewGuid(), ImageName = imageName, ImagePathNormal = pathNormal, ImagePathScaled = pathScaled, TargetId = news.Id };
                     // Добавляем объект класса Image в ранее созданный список images
                     images.Add(image);
+
                     // Делаем уменьшенную копию изображения
                     var img = Image.FromFile(_appEnvironment.WebRootPath + pathNormal);
                     var scaledImage = ImageResize.Scale(img, 300, 300);
-                    scaledImage.SaveAs(_appEnvironment.WebRootPath + pathScaled);
+                    scaledImage.SaveAs(_appEnvironment.WebRootPath + pathScaled, 50);
                 }
                 // Сохраняем новые объекты в БД
                 await websiteDB.Images.AddRangeAsync(images);
@@ -189,16 +189,22 @@ namespace ASP_Blog.Controllers
                 // Присваиваем загружаемому файлу уникальное имя на основе Guid
                 string imageName = Guid.NewGuid() + "_" + uploadedImage.FileName;
                 // Путь сохранения файла
-                string path = "/files/" + imageName;
+                string pathNormal = "/files/images/normal/" + imageName; // изображение исходного размера
+                string pathScaled = "/files/images/scaled/" + imageName; // уменьшенное изображение
                 // сохраняем файл в папку files в каталоге wwwroot
-                using (FileStream file = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                using (FileStream file = new FileStream(_appEnvironment.WebRootPath + pathNormal, FileMode.Create))
                 {
                     await uploadedImage.CopyToAsync(file);
                 }
                 // Создаем объект класса Image со всеми параметрами
-                ImageFile image = new ImageFile { Id = Guid.NewGuid(), ImageName = imageName, ImagePathNormal = path, TargetId = galleryId };
+                ImageFile image = new ImageFile { Id = Guid.NewGuid(), ImageName = imageName, ImagePathNormal = pathNormal, ImagePathScaled = pathScaled, TargetId = galleryId };
                 // Добавляем объект класса Image в ранее созданный список images
                 images.Add(image);
+
+                // Делаем уменьшенную копию изображения
+                var img = Image.FromFile(_appEnvironment.WebRootPath + pathNormal);
+                var scaledImage = ImageResize.Scale(img, 300, 300);
+                scaledImage.SaveAs(_appEnvironment.WebRootPath + pathScaled, 50);
             }
 
             await websiteDB.Images.AddRangeAsync(images);
